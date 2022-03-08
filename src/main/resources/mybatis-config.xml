@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration
+        PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<!--MyBatis核心配置-->
+<configuration>
+<!--    通过properties标签加载外部properties文件-->
+    <properties resource="jdbc.properties"></properties>
+    <settings>
+        <!--配置日志框架为log4j2-->
+        <setting name="logImpl" value="LOG4J2"/>
+    </settings>
+<!--    自定义别名-->
+    <typeAliases>
+        <typeAlias type="com.pzz.entity.Student" alias="stu"></typeAlias>
+    </typeAliases>
+<!--自定义类型转换器-->
+<typeHandlers>
+    <typeHandler handler="com.pzz.header.DateTypeHeader"></typeHandler>
+</typeHandlers>
+    <!--运行环境-->
+    <environments default="development">
+        <!--唯一标识ID-->
+        <environment id="development">
+<!--            事务平台管理器-->
+            <transactionManager type="JDBC"/>
+<!--            数据源-->
+            <dataSource type="POOLED">
+<!--                属性-->
+                <property name="driver" value="${jdbc.driver}"/>
+                <property name="url" value="${jdbc.url}"/>
+                <property name="username" value="${jdbc.username}"/>
+                <property name="password" value="${jdbc.password}"/>
+            </dataSource>
+        </environment>
+    </environments>
+    <!--映射文件-->
+    <mappers>
+        <mapper resource="studentMapper.xml"/>
+    </mappers>
+</configuration>

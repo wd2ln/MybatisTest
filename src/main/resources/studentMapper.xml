@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!--映射，namespace命名空间，不能重复-->
+<mapper namespace="com.pzz.dao.StudentDao">
+<!--    片段抽取-->
+    <sql id="seleteStudent">select * from Student</sql>
+<!--    select对应查询语句，id唯一-->
+    <select id="select" resultType="stu" parameterType="int">
+    select * from Student where id = #{id}
+  </select>
+<!--    查询全部-->
+    <select id="selectAll" resultType="stu">
+    <include refid="seleteStudent"></include>
+  </select>
+<!--    插入操作-->
+    <insert id="ins" parameterType="stu">
+        insert into Student values (#{id},#{name},#{age},#{gender},#{birthday},#{info})
+    </insert>
+<!--    删除操作-->
+    <delete id="del" parameterType="int">
+        delete from Student where id=#{id}
+    </delete>
+    <update id="update" parameterType="stu">
+        update Student set name=#{name} where id=#{id}
+    </update>
+<!--    使用if语句实现动态sql-->
+    <select id="findIfTest" parameterType="stu" resultType="stu">
+        <include refid="seleteStudent"></include>
+        <where>
+            <if test="id!=null">
+                and id=#{id}
+            </if>
+            <if test="gender!=null">
+                and gender=#{gender}
+            </if>
+            <if test="age!=null">
+                and age=#{age}
+            </if>
+        </where>
+    </select>
+<!--    使用注解-->
+    <select id="findIfTestParme" resultType="stu">
+        <include refid="seleteStudent"></include>
+        <where>
+            <if test="id!=null">
+                and id=#{id}
+            </if>
+            <if test="name!=null">
+                and name=#{name}
+            </if>
+            <if test="info!=null">
+                and info=#{info}
+            </if>
+        </where>
+    </select>
+<!--    foreach测试  stu别名-->
+    <select id="selectForeach" parameterType="list" resultType="stu">
+--         引入sql语句
+        <include refid="seleteStudent"></include>
+        <where>
+--             where id in(1,2,3)
+--             collection 传入的是什么集合，open以什么开始，close以什么结束,item变量名，separator以什么分隔
+            <foreach collection="list" open="id in(" close=")" item="id" separator=",">
+                #{id}
+            </foreach>
+        </where>
+    </select>
+<!--    自定义类型转换-->
+    <insert id="insertTypeHeader" parameterType="stu" >
+        insert into Student(name,birthday) values (#{name},#{birthday} )
+    </insert>
+</mapper>
