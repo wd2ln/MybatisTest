@@ -76,4 +76,11 @@
     <insert id="keyRollWriter" parameterType="stu" useGeneratedKeys="true" keyProperty="id">
         insert into Student(name,info,age) values (#{name},#{info},#{age})
     </insert>
+<!--    orm映射问题-->
+    <select id="ormErrorTest" parameterType="int" resultType="stu">
+        <include refid="seleteStudent"></include>
+        <where>
+            and id=#{id}
+        </where>
+    </select>
 </mapper>

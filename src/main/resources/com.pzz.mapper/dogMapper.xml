@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!--映射，namespace命名空间，不能重复-->
+<mapper namespace="com.pzz.dao.DogDao">
+<select id="selectAll1" resultType="com.pzz.entity.Dog" >
+    select id id_id,name name_name,info info_info from dog
+</select>
+</mapper>

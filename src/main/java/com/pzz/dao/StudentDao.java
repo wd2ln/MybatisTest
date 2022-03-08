@@ -14,4 +14,7 @@ public interface StudentDao {
     public void insertTypeHeader(Student student);
     //主键回填测试
     public void keyRollWriter(Student student);
+    //orm映射问题
+    public List<Student> ormErrorTest(Integer id);
+
 }

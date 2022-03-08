@@ -36,6 +36,7 @@
     </environments>
     <!--映射文件-->
     <mappers>
-        <mapper resource="studentMapper.xml"/>
+        <mapper resource="com.pzz.mapper/studentMapper.xml"/>
+        <mapper resource="com.pzz.mapper/dogMapper.xml"/>
     </mappers>
 </configuration>
