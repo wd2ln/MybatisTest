@@ -71,4 +71,9 @@
     <insert id="insertTypeHeader" parameterType="stu" >
         insert into Student(name,birthday) values (#{name},#{birthday} )
     </insert>
+<!--    主键回填-->
+    <!--将自增长id存入学生对象的id中-->
+    <insert id="keyRollWriter" parameterType="stu" useGeneratedKeys="true" keyProperty="id">
+        insert into Student(name,info,age) values (#{name},#{info},#{age})
+    </insert>
 </mapper>

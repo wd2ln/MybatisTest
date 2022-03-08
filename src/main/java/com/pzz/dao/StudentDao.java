@@ -12,4 +12,6 @@ public interface StudentDao {
     public Student findIfTestParme(@Param("id") int id,@Param("name") String name, @Param("info") String info);
     public List<Student> selectForeach(List<Integer> id);
     public void insertTypeHeader(Student student);
+    //主键回填测试
+    public void keyRollWriter(Student student);
 }

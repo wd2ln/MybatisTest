@@ -1,6 +1,8 @@
 package com.pzz.test;
 
+import com.pzz.dao.StudentDao;
 import com.pzz.entity.Student;
+import com.pzz.util.MyBatisUtils;
 import org.apache.ibatis.io.Resources;
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
@@ -39,5 +41,26 @@ public class MyTest {
             sqlSession.clearCache();
         }
     }
+@Test
+    //测试封装工具类MyBatisUtils
+    public void testMyBatisUtils() {
+    try {
+        // 通过工具类获取接口实现类对象
+        StudentDao mapper = MyBatisUtils.getMapper(StudentDao.class);
 
+        // 执行对应的方法
+
+        Student select = mapper.select(3);
+        // 提交
+MyBatisUtils.commit();
+
+        // 增强for循环遍历
+        System.out.println(select);
+
+    }catch (Exception e){
+e.printStackTrace();
+        // 回滚
+MyBatisUtils.rollback();
+    }
+}
 }

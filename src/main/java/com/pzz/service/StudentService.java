@@ -100,12 +100,33 @@ sqlSession.close();
         }
     }
     @Test
+    //主键回填
+    public void test5(){
+        try {
+            InputStream resourceAsStream = Resources.getResourceAsStream("mybatis-config.xml");
+            SqlSessionFactory build = new SqlSessionFactoryBuilder().build(resourceAsStream);
+            SqlSession sqlSession = build.openSession();
+            StudentDao mapper = sqlSession.getMapper(StudentDao.class);
+            //模拟数据
+            Student student=new Student();
+            student.setName("wangWu999");
+            student.setAge(98);
+            student.setInfo("fjeiafoeafh");
+           mapper.keyRollWriter(student);
+           sqlSession.commit();
+            sqlSession.close();
+            System.out.println(student.getId());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+    @Test
     //动态sql测试if语句
     public void testIfSql(){
         try {
             //模拟数据
             Student stu=new Student();
-            stu.setId(2);
+            stu.setId(6);
            // stu.setGender("男");
             //stu.setAge(34);
             //数据连接操作
