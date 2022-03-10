@@ -83,4 +83,11 @@
             and id=#{id}
         </where>
     </select>
+<!--    动态sql之foreach测试-->
+    <delete id="testForeach">
+        delete from Student where
+        <foreach collection="array" separator="," open="id in (" close=")" item="id">
+            #{id}
+        </foreach>
+    </delete>
 </mapper>

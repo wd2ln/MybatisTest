@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!--映射，namespace命名空间，不能重复-->
+<mapper namespace="com.pzz.dao.EmployeeDao">
+<!--    一对一映射-->
+    <resultMap id="findAllMap" type="com.pzz.entity.Employee">
+        <id property="id" column="emp_id"></id>
+        <result property="name" column="emp_name"></result>
+<!--        一对一关联使用的标签，用于将多个字段映射到一个对象中
+property 成员变量名
+javaType 成员变量数据类型
+-->
+        <association property="department" javaType="com.pzz.entity.Department">
+            <id property="id" column="dept_id"></id>
+            <result property="name" column="dept_name"></result>
+        </association>
+    </resultMap>
+<!--    一对多-->
+    <resultMap id="findAllMapMore" type="com.pzz.entity.Department">
+        <id column="dept_id" property="id"></id>
+        <result property="name" column="dept_name"></result>
+        <collection property="employees" ofType="com.pzz.entity.Employee" javaType="List">
+            <id property="id" column="emp_id"></id>
+            <result property="name" column="emp_name"></result>
+        </collection>
+    </resultMap>
+<!--    一对一-->
+     <select id="findAll" resultMap="findAllMap">
+         select * from employee e
+         inner join department d
+         on e.dept_id=d.dept_id
+     </select>
+<!--    一对多-->
+    <select id="findAll1" resultMap="findAllMapMore">
+        select * from employee e
+         inner join department d
+         on e.dept_id=d.dept_id
+         where d.dept_id=#{id}
+    </select>
+</mapper>

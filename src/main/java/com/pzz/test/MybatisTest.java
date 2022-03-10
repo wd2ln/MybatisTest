@@ -1,5 +1,6 @@
 package com.pzz.test;
 
+import com.github.pagehelper.PageHelper;
 import com.pzz.entity.Dog;
 import com.pzz.entity.Student;
 import org.apache.ibatis.io.Resources;
@@ -93,7 +94,10 @@ public class MybatisTest {
                 SqlSessionFactory sqlSessionFactory = new SqlSessionFactoryBuilder().build(inputStream);
                 //通过会话工厂获取连接
                 SqlSession sqlSession = sqlSessionFactory.openSession();
-                List<Student> o = sqlSession.selectList("com.pzz.dao.StudentMapper.selectAll");
+                // 查询指定页中的多少条数据
+                PageHelper.startPage(1,2);
+                List<Student> o = sqlSession.selectList("com.pzz.dao.StudentDao.selectAll");
+
                 for (Student stu:o
                      ) {
                     System.out.println(stu);

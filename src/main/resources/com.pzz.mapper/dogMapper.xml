@@ -4,7 +4,22 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <!--映射，namespace命名空间，不能重复-->
 <mapper namespace="com.pzz.dao.DogDao">
+    <resultMap id="dogMap" type="com.pzz.entity.Dog">
+        <!--将主键和成员变量相关联-->
+        <id property="tId" column="t_id"></id>
+        <!--将列名和成员变量相关联-->
+        <result property="tName" column="t_name"></result>
+        <result property="tInfo" column="t_info"></result>
+    </resultMap>
+<!--    使用别名-->
 <select id="selectAll1" resultType="com.pzz.entity.Dog" >
-    select id id_id,name name_name,info info_info from dog
+    select t_id tId,t_name tName,t_info tInfo from dog
 </select>
+    <select id="selectAllMap" resultMap="dogMap" parameterType="int" >
+        select * from dog
+    </select>
+<!--    使用将下划线后边的首字母变成大写       弊端一方必须有下划线，一方必须是大驼峰-->
+    <select id="selectAll_xhx" resultType="com.pzz.entity.Dog">
+        select * from dog
+    </select>
 </mapper>
